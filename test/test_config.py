@@ -73,31 +73,36 @@ class TestConfig(object):
     def test_render_hosts(self):
         result = self.uut.render_hosts()
 
-        assert_that(result).is_equal_to("""127.0.0.1	localhost
-::1	localhost ip6-localhost ip6-loopback
-fe00::0	ip6-localnet
-ff00::0	ip6-mcastprefix
-ff02::1	ip6-allnodes
-ff02::2	ip6-allrouters
-ff02::3	ip6-allhosts
+        hosts = {}
+        for line in result.split("\n"):
+            parts = line.split("\t")
+            if len(parts) == 2:
+                hosts[parts[0]] = parts[1].split(" ")
 
-10.0.11.10	abc1110
-10.0.11.11	abc1111
-10.0.11.20	abc1120
-10.0.10.5	abc1005 netboot
-10.0.10.20	abc1020
-10.0.10.21	abc1021
-10.0.10.30	abc1030 foo
-10.0.10.40	abc1040 bar baz""")
+        assert_that(hosts).contains_entry(
+            {'127.0.0.1': ['localhost']},
+            {'::1': ['localhost', 'ip6-localhost', 'ip6-loopback']},
+            {'fe00::0': ['ip6-localnet']},
+            {'ff00::0': ['ip6-mcastprefix']},
+            {'ff02::1': ['ip6-allnodes']},
+            {'ff02::2': ['ip6-allrouters']},
+            {'ff02::3': ['ip6-allhosts']},
+
+            {'10.0.11.10': ['abc1110']},
+            {'10.0.11.11': ['abc1111']},
+            {'10.0.11.20': ['abc1120']},
+            {'10.0.10.5': ['abc1005', 'netboot']},
+            {'10.0.10.20': ['abc1020']},
+            {'10.0.10.21': ['abc1021']},
+            {'10.0.10.30': ['abc1030', 'foo']},
+            {'10.0.10.40': ['abc1040', 'bar', 'baz']})
 
     def test_find_alias_by_name(self):
-
         result = self.uut.alias('foo')
 
         assert_that(result.host_name).is_equal_to("abc1030")
 
     def test_find_alias_by_name_no_result(self):
-
         result = self.uut.alias('qux')
 
         assert_that(result).is_none()
