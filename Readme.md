@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9207c14ad7414968a270f6085e8d1e59)](https://app.codacy.com/app/wuan/netboot-config?utm_source=github.com&utm_medium=referral&utm_content=Uniscon/netboot-config&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.org/Uniscon/netboot-config.svg?branch=master)](https://travis-ci.org/Uniscon/netboot-config)
 [![Coverage Status](https://coveralls.io/repos/github/Uniscon/netboot-config/badge.svg?branch=master)](https://coveralls.io/github/Uniscon/netboot-config?branch=master)
 
