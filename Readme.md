@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/Uniscon/netboot-config.svg?branch=master)](https://travis-ci.org/Uniscon/netboot-config)
+[![Coverage Status](https://coveralls.io/repos/github/Uniscon/netboot-config/badge.svg?branch=master)](https://coveralls.io/github/Uniscon/netboot-config?branch=master)
+
 # netboot-config
 
 Automated generation of KIWI image boot 
