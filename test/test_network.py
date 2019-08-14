@@ -53,3 +53,12 @@ class TestNetwork(object):
         host_names = [host.host_name for host in hosts]
 
         assert_that(host_names).contains_only('foo11', 'foo12', 'foo13', 'foo14')
+
+    def test_host_names_over_100(self):
+        self.uut.add_hosts(111, 4, '<image_type>')
+
+        hosts = self.uut.hosts()
+
+        host_names = [host.host_name for host in hosts]
+
+        assert_that(host_names).contains_only('foo11', 'foo12', 'foo13', 'foo14')

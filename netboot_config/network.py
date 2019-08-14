@@ -70,7 +70,7 @@ class Host(HostMeta):
 
     def __init__(self, name_prefix: str, network: ipaddress.IPv4Network, address: ipaddress.IPv4Address, image_type: Optional[str] = None,
                  aliases: Optional[List[str]] = None, config: Optional[List[Tuple[str]]] = None, address_digits=2):
-        self.host_name_template = name_prefix + "{:0" + str(address_digits) + "}"
+        self.host_name_format = lambda local_address: name_prefix + ("{:0" + str(address_digits) + "}").format(local_address)[-address_digits:]
 
         self._address = address
         self._network = network
@@ -94,7 +94,7 @@ class Host(HostMeta):
     @property
     def host_name(self):
         addr_mask = (1 << 32 - self._network.prefixlen) - 1
-        return self.host_name_template.format(self._address._ip & addr_mask)
+        return self.host_name_format(self._address._ip & addr_mask)
 
     @property
     def image_type(self) -> str:
