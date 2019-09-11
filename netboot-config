@@ -37,4 +37,4 @@ if __name__ == '__main__':
         ConfigFile(host, host_config, config.netboot_ip).write()
 
     host_config = HostConfig()
-    ConfigFile(DefaultHost('base_image'), host_config, config.netboot_ip).write()
+    ConfigFile(DefaultHost('base'), host_config, config.netboot_ip).write()
