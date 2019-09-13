@@ -97,6 +97,11 @@ class TestConfig(object):
             {'10.0.10.30': ['abc1030', 'foo']},
             {'10.0.10.40': ['abc1040', 'bar', 'baz']})
 
+    def test_render_hosts_returns_newline_at_end(self):
+        result = self.uut.render_hosts()
+
+        assert_that(result[-1]).is_equal_to('\n')
+
     def test_find_alias_by_name(self):
         result = self.uut.alias('foo')
 

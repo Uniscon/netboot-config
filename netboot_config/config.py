@@ -121,4 +121,4 @@ class Config(object):
         for host in self.all_hosts:
             lines.append(host.entry)
 
-        return "\n".join(lines)
+        return "\n".join(lines) + "\n"
