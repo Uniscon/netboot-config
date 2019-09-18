@@ -69,6 +69,9 @@ class Config(object):
     def hosts(self) -> List[Host]:
         return list(self._hosts.values())
 
+    def hosts_by_image_type(self, image_type):
+        return [host for host in self._hosts.values() if host.image_type == image_type]
+
     @property
     def static_hosts(self) -> List[Host]:
         return list(self._static_hosts.values())

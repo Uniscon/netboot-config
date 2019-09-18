@@ -42,6 +42,10 @@ class TestConfig(object):
     def test_all_hosts(self):
         assert_that(len(self.uut.all_hosts)).is_equal_to(8)
 
+    def test_hosts_by_image_type(self):
+        hosts = self.uut.hosts_by_image_type('type1')
+        assert_that([host.host_name for host in hosts]).contains("abc1110", "abc1111")
+
     def test_get_undefined_host_in_static_network(self):
         host = self.uut.get_host('10.0.10.99')
         assert_that(host.host_name).is_equal_to("abc1099")
