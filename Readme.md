@@ -8,7 +8,7 @@ Automated generation of KIWI image boot
 
 ## Basic Usage
 
-```
+```shell script
 netboot-config netboot-config.yml
 ```
 
