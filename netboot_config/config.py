@@ -6,6 +6,27 @@ import yaml
 from .network import HostGroup, Host
 
 
+def _map_entry(host_entry, host_group):
+    offset_ = host_entry['offset']
+    count_ = host_entry['count'] if 'count' in host_entry else 1
+
+    if 'alias' in host_entry:
+        aliases_ = (host_entry['alias'],)
+    elif 'aliases' in host_entry:
+        aliases_ = tuple(host_entry['aliases'])
+    else:
+        aliases_ = None
+
+    if 'config' in host_entry:
+        config_ = [(config_entry['source'], config_entry['target']) for config_entry in host_entry['config']]
+    else:
+        config_ = None
+
+    image_type_ = host_entry['image_type'] if 'image_type' in host_entry else None
+
+    host_group.add_hosts(offset_, count_, aliases_, image_type_, config_)
+
+
 class Config(object):
 
     def __init__(self, config_file: str):
@@ -22,7 +43,7 @@ class Config(object):
                 host_group = self.create_host_group(host_group_entry)
 
                 for host_entry in host_group_entry['hosts']:
-                    self.map_entry(host_entry, host_group)
+                    _map_entry(host_entry, host_group)
 
                 self._hosts.update({host.ipv4_address: host for host in host_group.hosts()})
 
@@ -30,7 +51,7 @@ class Config(object):
                 host_group = self.create_host_group(host_group_entry)
 
                 for host_entry in host_group_entry['hosts']:
-                    self.map_entry(host_entry, host_group)
+                    _map_entry(host_entry, host_group)
 
                 self._static_hosts.update({host.ipv4_address: host for host in host_group.hosts()})
 
@@ -44,26 +65,6 @@ class Config(object):
         self.network_prefixes[cidr_] = prefix_
         host_group = HostGroup(prefix_, cidr_)
         return host_group
-
-    def map_entry(self, host_entry, host_group):
-        offset_ = host_entry['offset']
-        count_ = host_entry['count'] if 'count' in host_entry else 1
-
-        if 'alias' in host_entry:
-            aliases_ = (host_entry['alias'],)
-        elif 'aliases' in host_entry:
-            aliases_ = tuple(host_entry['aliases'])
-        else:
-            aliases_ = None
-
-        if 'config' in host_entry:
-            config_ = [(config_entry['source'], config_entry['target']) for config_entry in host_entry['config']]
-        else:
-            config_ = None
-
-        image_type_ = host_entry['image_type'] if 'image_type' in host_entry else None
-
-        host_group.add_hosts(offset_, count_, aliases_, image_type_, config_)
 
     @property
     def hosts(self) -> List[Host]:

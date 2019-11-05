@@ -2,7 +2,7 @@ from ipaddress import IPv4Address, IPv4Network
 
 from assertpy import assert_that
 
-from netboot_config.network import HostGroup, HostMeta, Host
+from netboot_config.network import HostGroup, Host
 
 
 class TestHost(object):
@@ -26,9 +26,9 @@ class TestHost(object):
         assert_that(result).is_equal_to('0A0B0C0D')
 
     def test_host_name(self):
-       result = self.uut.host_name
+        result = self.uut.host_name
 
-       assert_that(result).is_equal_to('foo13')
+        assert_that(result).is_equal_to('foo13')
 
 
 class TestNetwork(object):

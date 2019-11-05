@@ -45,7 +45,7 @@ hosts:
 
 to configuration files usable for KIWI network boot:
 
-```
+```text
 .
 ├── abc1110
 │   └── hostname
