@@ -7,11 +7,11 @@ python:
 install:
   # install deps
   - pip install -r requirements.txt
-  - pip install pytest-cov mock assertpy python-coveralls
+  - pip install pytest-cov mock assertpy codacy-coverage
   - pip list
 
 script:
-  - py.test -v --cov netboot_config --cov-report term-missing
+  - py.test -v --cov netboot_config --cov-report xml
 
 after_success:
-  - coveralls
+  - python-codacy-coverage -r coverage.xml
